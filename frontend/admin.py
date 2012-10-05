@@ -1,0 +1,4 @@
+from models import Receta
+from django.contrib import admin
+
+admin.site.register(Receta)
