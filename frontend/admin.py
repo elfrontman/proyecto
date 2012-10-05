@@ -1,4 +1,5 @@
-from models import Receta
+from models import *
 from django.contrib import admin
 
 admin.site.register(Receta)
+admin.site.register(Comentario)
