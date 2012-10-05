@@ -14,8 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(RUTA_PROYECTO,'proyecto.db'),                      # Or path to database file if using sqlite3.
-        #'NAME': '/home/novic09/proyecto/proyecto.db',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(RUTA_PROYECTO,'proyecto.db'),   # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -145,4 +144,11 @@ LOGGING = {
 }
 
 STATICFILES_DIRS = ('/home/novic09/proyecto/static',)
+
+#Configuracion para enviar mensajes usando gmail
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_HOST_USER = 'tcarlosvargas@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
 

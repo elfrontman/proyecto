@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
                     {'document_root':settings.MEDIA_ROOT,}
         ),
+    url(r'^contacto/$','proyecto.frontend.views.contacto'),
+    url(r'^receta/nueva$','proyecto.frontend.views.nueva_receta'),
+    url(r'^comenta/$','proyecto.frontend.views.nuevo_comentario'),
 )
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns

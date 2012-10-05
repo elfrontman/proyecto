@@ -1,15 +1,12 @@
-<header>
-	<nav>
-		<ul>
-			<li><a href="/">Inicio</a></li>
-			<li><a href="/usuarios">Usuarios registrados</a></li>
-			<li><a href="/recetas">Recetas</a></li>
-			<li><a href="/sobre">Sobre</a></li>
-		</ul>
-	</nav>
-</header>
-<section>
+{% extends 'base.html' %}
+
+{% block titulo %}{{receta.titulo}}{% endblock %}
+
+{% block encabezado %}
 	<h1>{{receta.titulo}}</h1>
+{% endblock %}
+
+{% block contenido %}
 	<div id="ingredientes">
 		<h2>Ingredientes</h2>
 		<p>{{receta.ingredientes}}</p>
@@ -23,7 +20,7 @@
 	</div>
 	<div id="comentarios">
 		<h2>Comentarios</h2>
-		{% for item in cometarios %}
+		{% for item in comentario %}
 			<p>{{item.texto}}</p>
 		{% empty %}
 			<p>Sin Comentarios Registrados</p>
@@ -31,5 +28,6 @@
 	</div>
 </section>
 <footer>
-	<p>Registrado {{receta.tiempo_registro}} por {{receta.usuario}}</p>
+	<p>Registrado {{receta.tiempo_registro|date:'SHORT_DATETIME_FORMAT'}} por {{receta.usuario}}</p>
 </footer>
+{% endblock %}
