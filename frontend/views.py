@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.mail import EmailMessage
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 
 
 def sobre(request):
@@ -14,12 +17,12 @@ def sobre(request):
 
 def inicio(request):
 	recetas = Receta.objects.all()
-	return render_to_response('inicio.html',{'recetas':recetas})
+	return render_to_response('inicio.html',{'recetas':recetas}, context_instance=RequestContext(request))
 
 def usuarios(request):
 	usuarios = User.objects.all()
 	recetas = Receta.objects.all()
-	return render_to_response('usuarios.html',{'usuarios':usuarios,'recetas':recetas})
+	return render_to_response('usuarios.html',{'usuarios':usuarios,'recetas':recetas}, context_instance=RequestContext(request))
 
 def lista_recetas(request):
 	recetas = Receta.objects.all()
@@ -64,6 +67,49 @@ def nuevo_comentario(request):
 	else:
 		formulario = ComentarioForm()
 	return render_to_response('comentarioform.html',{'formulario':formulario},context_instance=RequestContext(request))
+
+def nuevo_usuario(request):
+	if(request.method == 'POST'):
+		formulario = UserCreationForm(request.POST)
+		if(formulario.is_valid):
+			formulario.save()
+			return HttpResponseRedirect('/')
+	else:
+		formulario = UserCreationForm()
+	return render_to_response('nuevousuario.html', {'formulario':formulario}, context_instance=RequestContext(request))
+
+def ingresar(request):
+	if not request.user.is_anonymous():
+		return HttpResponseRedirect('/privado')
+	if request.method == 'POST':
+		formulario = AuthenticationForm(request.POST)
+		if formulario.is_valid:
+			usuarios = request.POST['username']
+			clave = request.POST['password']
+			acceso = authenticate(username=usuarios, password=clave)
+			if acceso is not None:
+				if acceso.is_active:
+					login(request,acceso)
+					return HttpResponseRedirect('/privado')
+				else:
+					return render_to_response('noactivo.html', context_instance=RequestContext(request))
+			else:
+				return render_to_response('nousuario.html', context_instance=RequestContext(request))
+	else:
+		formulario = AuthenticationForm()
+		return render_to_response('ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')				
+def privado(request):
+	usuario = request.user
+	return render_to_response('privado.html', {'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required(login_url='/ingresar')	
+def cerrar(request):
+	logout(request)
+	return HttpResponseRedirect('/')
+
+
 
 
 

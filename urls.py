@@ -19,6 +19,10 @@ urlpatterns = patterns('',
     url(r'^contacto/$','proyecto.frontend.views.contacto'),
     url(r'^receta/nueva$','proyecto.frontend.views.nueva_receta'),
     url(r'^comenta/$','proyecto.frontend.views.nuevo_comentario'),
+    url(r'^usuario/nuevo$','proyecto.frontend.views.nuevo_usuario'),
+    url(r'^ingresar/$','proyecto.frontend.views.ingresar'),
+    url(r'^privado/$','proyecto.frontend.views.privado'),
+    url(r'^cerrar/$','proyecto.frontend.views.cerrar'),
 )
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
