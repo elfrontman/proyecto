@@ -1,6 +1,8 @@
 # Django settings for proyecto project.
-import os
+import os, os.path
 RUTA_PROYECTO = os.path.dirname(os.path.realpath(__file__))
+#os.environ["HTTPS_PROXY"] = os.environ["HTTP_PROXY"] 
+import socket
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -116,6 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'proyecto.frontend',
+    'proyecto.picasa',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -149,4 +152,15 @@ EMAIL_HOST = 'smpt.gmail.com'
 EMAIL_HOST_USER = 'tcarlosvargas@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
+2
+#CONFIG PICASA
+PICASA_STORAGE_OPTIONS ={
+    'email':'tcarlosvargas@gmail.com',
+    'source':'creative_',
+    'password':'andres09',
+    'userid':'tcarlosvargas',
+    'cache':True,
+}
+
+CACHE_BACKEND = "locmem://?timeout=30&max_entries=400"
 

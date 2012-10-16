@@ -1,6 +1,33 @@
 #encoding:utf-8
+import os, sys
 from django.db import models
 from django.contrib.auth.models import User
+from picasa import PicasaField
+
+def get_Album(instance, filename):
+	album = str(instance.album)
+	return os.path.join(album,filename)
+
+def choices():
+	from picasa import PicasaStorage
+	storage = PicasaStorage()
+	return [(a.title.text, a.title.text) for a in storage.albumsFromUser()]
+
+class Album(models.Model):
+	name = models.CharField(max_length=128)
+
+	def __unicode__(self):
+		return self.name
+
+
+class Image(models.Model):
+	album = models.CharField(max_length=50, choices = choices())
+	mediaFoto = PicasaField(upload_to=get_Album)
+	dropBoxFoto = PicasaField()
+
+	def __unicode__(self):
+		return self.dropBoxFoto.url
+
 
 class Receta(models.Model):
 	#Dato cadena, longitud 100 y unico

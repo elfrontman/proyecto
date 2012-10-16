@@ -1,5 +1,5 @@
 #encode:utf-8
-from proyecto.frontend.models import Receta, Comentario
+from proyecto.frontend.models import Receta, Comentario, Image
 from proyecto.frontend.forms import RecetaForm, ComentarioForm, ContactoForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
+def images(request):
+	return render_to_response('images.html', {'images':Image.objects})
 
 def sobre(request):
 	html = "<html><body>Proyecto de Ejemple en Django<body></html>"

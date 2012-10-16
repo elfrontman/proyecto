@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{receta.titulo}}{% endblock %}
+
+{% block encabezado %}
+	<h1>Imagenes Picasa</h1>
+{% endblock %}
+
+{% block contenido %}
+	{% for image in images.all %}
+		<a href="{{image.dropBoxFoto.url}}"><img src="{{image.dropBoxFoto.src}}" width="300" ></a>
+		<br/>
+	{% endfor %}
+{% endblock %}
